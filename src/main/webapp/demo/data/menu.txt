@@ -1,0 +1,6 @@
+[
+	{ id: "message", text: "信息管理", iconCls: "icon-folder"},
+	{ id: "Material", pid: "message", text: "原材料管理", iconCls: "icon-user", url: "../material/materialMain.html"},
+	{ id: "Dish", pid: "message", text: "菜品管理", iconCls: "icon-user", url: "../dish/dishMain.html"},
+	{ id: "Menu", pid: "message", text: "菜单信息", iconCls: "icon-user", url: "../menu/menuMain.html"},
+]
