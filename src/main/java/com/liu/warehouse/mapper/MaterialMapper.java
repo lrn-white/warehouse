@@ -1,5 +1,6 @@
 package com.liu.warehouse.mapper;
 
+import com.liu.warehouse.model.DishAndMaterial;
 import com.liu.warehouse.model.Material;
 import org.apache.ibatis.annotations.*;
 
@@ -63,6 +64,6 @@ public interface MaterialMapper {
      * @author 刘仁楠
      * @date 2018/5/8 13:59
      */
-    @Select({"SELECT * FROM material where materialID = #{arg1}"})
+    @Select("SELECT * FROM material where materialID = #{arg1}")
     Material getMaterialById(Integer materialID);
 }

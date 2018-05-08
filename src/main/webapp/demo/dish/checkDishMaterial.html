@@ -1,10 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>菜品材料编辑页面</title>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <link href="../demo.css" rel="stylesheet" type="text/css" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <link href="../demo.css" rel="stylesheet" type="text/css"/>
 
     <script src="../../scripts/boot.js" type="text/javascript"></script>
     <script src="../../scripts/miniui/locale/en_US.js" type="text/javascript"></script>
@@ -12,161 +12,130 @@
 
 </head>
 <body>
-<div style="width:800px;">
+<style type="text/css">
+    html, body{
+        margin:0;padding:0;border:0;width:100%;height:100%;overflow:hidden;
+    }
+</style>
+<div style="width:600px;">
     <div class="mini-toolbar" style="border-bottom:0;padding:0px;">
         <table style="width:100%;">
             <tr>
                 <td style="width:100%;">
-                    <a class="mini-button" iconCls="icon-add" onclick="addRow()" plain="true" tooltip="增加...">增加</a>
-                    <a class="mini-button" iconCls="icon-remove" onclick="removeRow()" plain="true">删除</a>
-                    <span class="separator"></span>
-                    <a class="mini-button" iconCls="icon-save" onclick="saveData()" plain="true">保存</a>
+                    <a class="mini-button" iconCls="icon-add" onclick="add()">增加</a>
+                    <a class="mini-button" iconCls="icon-edit" onclick="edit()">编辑</a>
+                    <a class="mini-button" iconCls="icon-remove" onclick="remove()">删除</a>
                 </td>
             </tr>
         </table>
     </div>
 </div>
-<div id="datagrid1" class="mini-datagrid" style="width:800px;height:280px;"
-     url="../data/AjaxService.aspx?method=SearchEmployees" idField="id"
+<div id="datagrid1" class="mini-datagrid" style="width:600px;height:400px;"
+     url="../../dish/getMaterialsByDishID?dishID=1" idField="materialID"
      allowResize="true" pageSize="20"
      allowCellEdit="true" allowCellSelect="true" multiSelect="true"
-     editNextOnEnterKey="true"  editNextRowCell="true"
-
+     editNextOnEnterKey="true" editNextRowCell="true"
 >
     <div property="columns">
-        <div type="indexcolumn"></div>
         <div type="checkcolumn"></div>
-        <div name="LoginName"  field="loginname" headerAlign="center" allowSort="true" width="150" >员工帐号
-            <input property="editor" class="mini-textbox" style="width:100%;" minWidth="200" />
+        <div name="LoginName" field="materialName" headerAlign="center" allowSort="true" width="50">原材料名
+            <input property="editor" class="mini-textbox" style="width:100%;" minWidth="50"/>
         </div>
-        <div field="age" width="100" allowSort="true" >年龄
-            <input property="editor" class="mini-spinner"  minValue="0" maxValue="200" value="25" style="width:100%;"/>
+        <div name="LoginName" field="amount" headerAlign="center" allowSort="true" width="50">数量
+            <input property="editor" class="mini-textbox" style="width:100%;" minWidth="50"/>
         </div>
-        <div name="birthday" field="birthday" width="100" allowSort="true" dateFormat="yyyy-MM-dd">出生日期
-            <input property="editor" class="mini-datepicker" style="width:100%;"/>
-        </div>
-        <div field="remarks" width="120" headerAlign="center" allowSort="true">备注
-            <input property="editor" class="mini-textarea" style="width:200px;" minWidth="200" minHeight="50"/>
-        </div>
-        <!--ComboBox：本地数据-->
-        <div type="comboboxcolumn" autoShowPopup="true" name="gender" field="gender" width="100" allowSort="true"  align="center" headerAlign="center">性别
-            <input property="editor" class="mini-combobox" style="width:100%;" data="Genders" />
-        </div>
-        <!--ComboBox：远程数据-->
-        <div type="comboboxcolumn" field="country" width="100" headerAlign="center" >国家
-            <input property="editor" class="mini-combobox" style="width:100%;" url="../data/countrys.txt" />
-        </div>
-        <div type="checkboxcolumn" field="married" trueValue="1" falseValue="0" width="60" headerAlign="center">婚否</div>
     </div>
 </div>
 <script type="text/javascript">
-
-    var Genders = [{ id: 1, text: '男' }, { id: 2, text: '女'}];
-
     mini.parse();
 
     var grid = mini.get("datagrid1");
     grid.load();
 
+    function add() {
+        mini.open({
+            targetWindow: window,
 
-    var menu = new ColumnsMenu(grid);
-
-    //////////////////////////////////////////////////////
-
-    function search() {
-        var key = mini.get("key").getValue();
-
-        grid.load({ key: key });
-    }
-
-    function onKeyEnter(e) {
-        search();
-    }
-
-    function addRow() {
-        var newRow = { name: "New Row" };
-        grid.addRow(newRow, 0);
-
-        grid.beginEditCell(newRow, "LoginName");
-    }
-    function removeRow() {
-        var rows = grid.getSelecteds();
-        if (rows.length > 0) {
-
-            grid.removeRows(rows, true);
-        }
-    }
-    function saveData() {
-
-        var data = grid.getChanges();
-        var json = mini.encode(data);
-
-        grid.loading("保存中，请稍后......");
-        $.ajax({
-            url: "../data/AjaxService.aspx?method=SaveEmployees",
-            data: { data: json },
-            type: "post",
-            success: function (text) {
-                handleSuccess(text, function (success, result) {
-                    if (success) {
-                        //alert("保存成功");
-                        grid.reload();
-                    }
-                    grid.unmask();
-                });
+            url: bootPATH + "../demo/dish/materialAddWindows.html",
+            title: "新增原材料信息", width: 350, height: 200,
+            onload: function () {
+                var iframe = this.getIFrameEl();
+                var data = {action: "new"};
+                iframe.contentWindow.SetData(data);
             },
-            error: function (jqXHR, textStatus, errorThrown) {
-                handlerError(jqXHR, textStatus, errorThrown);
+            ondestroy: function (action) {
+
+                grid.reload();
             }
         });
     }
 
-
-    grid.on("celleditenter", function (e) {
-        var index = grid.indexOf(e.record);
-        if (index == grid.getData().length - 1) {
-            var row = {};
-            grid.addRow(row);
+    function edit() {
+        var row = grid.getSelected();
+        if (row) {
+            mini.open({
+                url: bootPATH + "../demo/material/materialUpdateWindows.html",
+                title: "修改原材料信息", width: 350, height: 200,
+                onload: function () {
+                    var iframe = this.getIFrameEl();
+                    var data = {action: "edit", materialID: row.materialID};
+                    iframe.contentWindow.SetData(data);
+                },
+                ondestroy: function (action) {
+//                    var iframe = this.getIFrameEl();
+                    grid.reload();
+                }
+            });
+        } else {
+            alert("请选中一条记录");
         }
-    });
+    }
 
-    grid.on("beforeload", function (e) {
-        if (grid.getChanges().length > 0) {
-            if (confirm("有增删改的数据未保存，是否取消本次操作？")) {
-                e.cancel = true;
+    function check() {
+        var row = grid.getSelected();
+        if (row) {
+            mini.open({
+                url: bootPATH + "../demo/dish/checkDishMaterial.html",
+                title: "查看菜品原材料信息", width: 350, height: 200,
+                onload: function () {
+                    var iframe = this.getIFrameEl();
+                    var data = {action: "check", dishID: row.dishID};
+                    iframe.contentWindow.SetData(data);
+                },
+                ondestroy: function (action) {
+//                    var iframe = this.getIFrameEl();
+                    grid.reload();
+                }
+            });
+        } else {
+            alert("请选中一条记录");
+        }
+    }
+
+    function remove() {
+        var rows = grid.getSelecteds();
+        if (rows.length > 0) {
+            if (confirm("确定删除选中记录？")) {
+                var ids = [];
+                for (var i = 0, l = rows.length; i < l; i++) {
+                    var r = rows[i];
+                    ids.push(r.materialID);
+                }
+                var materialID = ids.join(',');
+                grid.loading("操作中，请稍后......");
+                $.ajax({
+                    url: "../../material/deleteMaterialById?materialID=" + materialID,
+                    success: function (text) {
+                        grid.reload();
+                    },
+                    error: function () {
+                    }
+                });
             }
+        } else {
+            alert("请选中一条记录");
         }
-    });
-
-
-    //        grid.on("cellcommitedit", function (e) {
-    //            if (e.field == "loginname") {
-    //                if (e.value == "111") {
-    //                    alert("不允许为111");
-    //                    e.cancel = true;
-    //                }
-    //            }
-    //        });
-
-    //        grid.on('beforeload', function (e) {
-    //            if (grid.getChanges().length > 0) {
-    //                e.cancel = true;
-    //                alert('有未保存的数据');
-    //            }
-    //        });
-
-
+    }
 </script>
-
-<div class="description">
-    <h3>Description</h3>
-    <ul>
-        <li>方向键导航单元格</li>
-        <li>按回车键进入编辑</li>
-        <li>按ESC键取消编辑</li>
-        <li>按Tab键进入下一个单元格编辑</li>
-        <li>editNextOnEnterKey="true"后，按回车键进入下一个单元格编辑</li>
-    </ul>
-</div>
 </body>
 </html>
