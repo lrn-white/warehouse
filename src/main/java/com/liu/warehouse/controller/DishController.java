@@ -57,4 +57,15 @@ public class DishController {
     public void dishAddMaterial(DishAndMaterial dishAndMaterial) {
         dishService.dishAddMaterial(dishAndMaterial);
     }
+
+    /**
+     * 根据materialID删除菜品的原材料
+     *
+     * @author 刘仁楠
+     * @date 2018/5/8 16:48
+     */
+    @RequestMapping("/deleteDishByMaterialName")
+    public void deleteDishByMaterialName(String materialName){
+        dishService.deleteDishByMaterialName(materialName);
+    }
 }

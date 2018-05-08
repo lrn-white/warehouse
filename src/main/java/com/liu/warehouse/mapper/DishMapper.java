@@ -3,6 +3,7 @@ package com.liu.warehouse.mapper;
 import com.liu.warehouse.model.Dish;
 import com.liu.warehouse.model.DishAndMaterial;
 import com.liu.warehouse.model.Material;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -42,4 +43,13 @@ public interface DishMapper {
      */
     @Insert("INSERT INTO dishandmaterial (dishID, materialName, amount) VALUES (#{dishID}, #{materialName}, #{amount})")
     void dishAddMaterial(DishAndMaterial dishAndMaterial);
+
+    /**
+     * 根据materialID删除菜品的原材料
+     *
+     * @author 刘仁楠
+     * @date 2018/5/8 16:48
+     */
+    @Delete("DELETE FROM dishandmaterial WHERE materialName = {arg1}")
+    void deleteDishByMaterialName(String materialName);
 }

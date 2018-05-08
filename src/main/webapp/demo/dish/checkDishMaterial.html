@@ -124,7 +124,7 @@
                 var materialID = ids.join(',');
                 grid.loading("操作中，请稍后......");
                 $.ajax({
-                    url: "../../material/deleteMaterialById?materialID=" + materialID,
+                    url: "../../dish/deleteDishByMaterialName?materialName=" + materialName,
                     success: function (text) {
                         grid.reload();
                     },
