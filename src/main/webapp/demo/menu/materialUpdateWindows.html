@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <title>原材料信息面板</title>
+    <title>原材料编辑页面</title>
     <script src="../../scripts/boot.js" type="text/javascript"></script>
 
     <style type="text/css">
@@ -26,19 +26,13 @@
                 <tr>
                     <td style="width:70px;">原材料名</td>
                     <td style="width:150px;">
-                        <input name="materialName" class="mini-textbox" required="true" />
+                        <input name="materialName" class="mini-textbox" required="true" id="materialName"/>
                     </td>
                 </tr>
                 <tr>
-                    <td style="width:70px;">单价</td>
+                    <td style="width:70px;">数量</td>
                     <td style="width:150px;">
-                        <input name="materialPrice" class="mini-textbox" required="true" />
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width:70px;">库存</td>
-                    <td style="width:150px;">
-                        <input name="materialStock" class="mini-textbox" required="true" />
+                        <input name="amount" class="mini-textbox" required="true" id="amount"/>
                     </td>
                 </tr>
             </table>
@@ -64,12 +58,11 @@
         var json = mini.encode([o]);
 
         var materialName = document.getElementsByName("materialName")[0].value;
-        var materialPrice = document.getElementsByName("materialPrice")[0].value;
-        var materialStock = document.getElementsByName("materialStock")[0].value;
+        var amount = document.getElementsByName("amount")[0].value;
 
         $.ajax({
-            url: '../../material/updatematerial?materialName=' + materialName + '&materialPrice=' + materialPrice
-            + '&materialStock=' + materialStock,
+            url: '../../dish/updateDishMaterialByMaterialName?materialName=' + materialName + '&amount=' + amount
+            + '&dishID=' + 1,
             type: 'post',
 //            data: { data: json },
 //            cache: false,
@@ -93,7 +86,7 @@
             data = mini.clone(data);
 
             $.ajax({
-                url: "../../material/getMaterialById?materialID=" + data.materialID,
+                url: "../../dish/getMaterialbyMaterialname?materialName=" + data.materialName,
                 cache: false,
                 success: function (text) {
                     var o = mini.decode(text);

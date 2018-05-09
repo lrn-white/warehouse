@@ -12,5 +12,5 @@ public class Menu {
 
     private String menuName;
 
-    private String totalPrice;
+    private Double totalMenuPrice;
 }

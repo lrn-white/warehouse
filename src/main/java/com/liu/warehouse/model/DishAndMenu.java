@@ -4,12 +4,13 @@ import lombok.Data;
 
 /**
  * @author 刘仁楠
- * @date 2018/5/7 9:53
+ * @date 2018/5/9 16:50
  */
 @Data
-public class Dish {
-
+public class DishAndMenu {
     private Integer dishID;
+
+    private Integer menuID;
 
     private String dishName;
 

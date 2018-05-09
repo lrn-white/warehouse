@@ -65,7 +65,50 @@ public class DishController {
      * @date 2018/5/8 16:48
      */
     @RequestMapping("/deleteDishByMaterialName")
-    public void deleteDishByMaterialName(String materialName){
-        dishService.deleteDishByMaterialName(materialName);
+    public void deleteDishByMaterialName(String materialName, Integer dishID) {
+        dishService.deleteDishByMaterialName(materialName, dishID);
+    }
+
+    /**
+     * 根据materialName修改菜品原材料的amount
+     *
+     * @author 刘仁楠
+     * @date 2018/5/9 9:49
+     */
+    @RequestMapping("/updateDishMaterialByMaterialName")
+    public void updateDishMaterialByMaterialName(DishAndMaterial dishAndMaterial) {
+        dishService.updateDishMaterialByMaterialName(dishAndMaterial);
+    }
+
+    /**
+     * 通过materialName获得material信息
+     *
+     * @author 刘仁楠
+     * @date 2018/5/9 9:53
+     */
+    @RequestMapping("/getMaterialbyMaterialname")
+    public DishAndMaterial getMaterialbyMaterialname(String materialName) {
+        return dishService.getMaterialbyMaterialname(materialName);
+    }
+
+    /**
+     * 添加菜名
+     * @author 刘仁楠
+     * @date 2018/5/9 14:30
+     */
+    @RequestMapping("/addDishName")
+    public void addDishName(String dishName){
+        dishService.addDishName(dishName);
+    }
+
+    /**
+     * 根据dishID删除菜名
+     *
+     * @author 刘仁楠
+     * @date 2018/5/9 14:34
+     */
+    @RequestMapping("/deleteDishByDishID")
+    public void deleteDishByDishID(Integer dishID){
+        dishService.deleteDishByDishID(dishID);
     }
 }

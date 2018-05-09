@@ -36,7 +36,7 @@
     </div>
 </div>
 <div id="datagrid1" class="mini-datagrid" style="width:600px;height:400px;"
-     url="../../dish/getMaterialsByDishID?dishID=1"
+     url="../../menu/getDishByMenuID?menuID=2"
      idField="materialID"
      allowResize="true" pageSize="20"
      allowCellEdit="true" allowCellSelect="true" multiSelect="true"
@@ -44,10 +44,10 @@
 >
     <div property="columns">
         <div type="checkcolumn"></div>
-        <div name="materialName" field="materialName" headerAlign="center" allowSort="true" width="50">原材料名
+        <div name="dishName" field="dishName" headerAlign="center" allowSort="true" width="50">菜名
             <input property="editor" class="mini-textbox" style="width:100%;" minWidth="50"/>
         </div>
-        <div name="amount" field="amount" headerAlign="center" allowSort="true" width="50">数量
+        <div name="totalPrice" field="totalPrice" headerAlign="center" allowSort="true" width="50">单价
             <input property="editor" class="mini-textbox" style="width:100%;" minWidth="50"/>
         </div>
     </div>

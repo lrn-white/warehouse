@@ -12,7 +12,7 @@ public class Material {
 
     private String materialName;
 
-    private String materialPrice;
+    private double materialPrice;
     /**
      * 库存
      */

@@ -12,7 +12,7 @@ public class DishAndMaterial {
 
     private Integer materialID;
 
-    private String amount;
+    private Integer amount;
 
     private String materialName;
 }
