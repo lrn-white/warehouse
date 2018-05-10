@@ -1,8 +1,8 @@
 package com.liu.warehouse.controller;
 
 import com.liu.warehouse.model.Material;
-import com.liu.warehouse.msg.MsgEnum;
-import com.liu.warehouse.msg.MsgTemplate;
+import com.liu.warehouse.commons.msg.MsgEnum;
+import com.liu.warehouse.commons.msg.MsgTemplate;
 import com.liu.warehouse.service.MaterialService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Map;
 
 /**

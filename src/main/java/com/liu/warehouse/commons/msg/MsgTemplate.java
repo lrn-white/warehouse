@@ -1,4 +1,4 @@
-package com.liu.warehouse.msg;
+package com.liu.warehouse.commons.msg;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;

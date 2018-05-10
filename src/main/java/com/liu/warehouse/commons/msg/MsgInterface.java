@@ -1,4 +1,4 @@
-package com.liu.warehouse.msg;
+package com.liu.warehouse.commons.msg;
 
 /**
  * @author 刘仁楠

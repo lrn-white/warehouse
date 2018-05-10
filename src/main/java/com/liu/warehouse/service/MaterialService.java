@@ -2,7 +2,7 @@ package com.liu.warehouse.service;
 
 import com.liu.warehouse.mapper.MaterialMapper;
 import com.liu.warehouse.model.Material;
-import com.liu.warehouse.msg.MsgTemplate;
+import com.liu.warehouse.commons.msg.MsgTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

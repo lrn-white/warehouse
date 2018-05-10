@@ -28,8 +28,8 @@
             <tr>
                 <td style="width:100%;">
                     <a class="mini-button" iconCls="icon-add" onclick="add()">增加</a>
-                    <a class="mini-button" iconCls="icon-edit" onclick="edit()">编辑</a>
                     <a class="mini-button" iconCls="icon-remove" onclick="remove()">删除</a>
+                    <a class="mini-button" iconCls="icon-edit" onclick="excel()">生成EXCEl</a>
                 </td>
             </tr>
         </table>
@@ -66,7 +66,7 @@
         mini.open({
             targetWindow: window,
 
-            url: bootPATH + "../demo/dish/materialAddWindows.html",
+            url: bootPATH + "../demo/menu/dishAddWindows.html",
             title: "新增原材料信息", width: 350, height: 200,
             onload: function () {
                 var iframe = this.getIFrameEl();
@@ -74,52 +74,9 @@
                 iframe.contentWindow.SetData(data);
             },
             ondestroy: function (action) {
-
                 grid.reload();
             }
         });
-    }
-
-    function edit() {
-        var row = grid.getSelected();
-        if (row) {
-            mini.open({
-                url: bootPATH + "../demo/dish/materialUpdateWindows.html",
-                title: "修改原材料信息", width: 350, height: 200,
-                onload: function () {
-                    var iframe = this.getIFrameEl();
-                    var data = {action: "edit", materialName: row.materialName};
-                    iframe.contentWindow.SetData(data);
-                },
-                ondestroy: function (action) {
-//                    var iframe = this.getIFrameEl();
-                    grid.reload();
-                }
-            });
-        } else {
-            alert("请选中一条记录");
-        }
-    }
-
-    function check() {
-        var row = grid.getSelected();
-        if (row) {
-            mini.open({
-                url: bootPATH + "../demo/dish/checkDishMaterial.html",
-                title: "查看菜品原材料信息", width: 350, height: 200,
-                onload: function () {
-                    var iframe = this.getIFrameEl();
-                    var data = {action: "check", dishID: row.dishID};
-                    iframe.contentWindow.SetData(data);
-                },
-                ondestroy: function (action) {
-//                    var iframe = this.getIFrameEl();
-                    grid.reload();
-                }
-            });
-        } else {
-            alert("请选中一条记录");
-        }
     }
 
     function remove() {
@@ -128,12 +85,12 @@
             var ids = [];
             for (var i = 0, l = rows.length; i < l; i++) {
                 var r = rows[i];
-                ids.push(r.materialName);
+                ids.push(r.dishName);
             }
-            var materialName = ids.join(',');
+            var dishName = ids.join(',');
             grid.loading("操作中，请稍后......");
             $.ajax({
-                url: "../../dish/deleteDishByMaterialName?materialName=" + materialName + "&dishID=1",
+                url: "../../menu/deleteDishbyMenuIDAndDishName?dishName=" + dishName + "&menuID=2",
                 success: function (text) {
                     grid.reload();
                 },
@@ -143,6 +100,33 @@
         } else {
             alert("请选中一条记录");
         }
+    }
+
+    function excel() {
+        $.ajax({
+            url: '../../menu/getMenuDetailByMenuID?menuID=2',
+            type: 'post',
+//            data: { data: json },
+//            cache: false,
+            dataType:"json",
+            async : false,
+            success: function (text) {
+                CloseWindow("save");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                // alert(jqXHR.responseText);
+                CloseWindow();
+            }
+        });
+    }
+    function CloseWindow(action) {
+        if (action == "close" && form.isChanged()) {
+            if (confirm("数据被修改了，是否先保存？")) {
+                return false;
+            }
+        }
+        if (window.CloseOwnerWindow) return window.CloseOwnerWindow(action);
+        else window.close();
     }
 
 </script>
